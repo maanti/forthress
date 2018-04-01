@@ -3,11 +3,13 @@
 ;
 
 : isPrime ( n -- bool )
+    dup 2 < not if
     1 swap
-    repeat 
-        swap 1 + dup rot dup rot % not 
-    until 
-    = 
+        repeat 
+            swap 1 + dup rot dup rot % not 
+        until 
+        = 
+    else drop 0 then
 ; 
 
 : save ( val -- addr )
@@ -16,7 +18,7 @@
 
 : concat ( addr1 addr2 -- addr3 )
     swap 2dup
-    count swap count dup rot +
+    count swap count dup rot + 1 +
     heap-alloc
     rot dup rot dup rot 
     string-copy swap 
